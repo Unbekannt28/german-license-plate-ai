@@ -49,7 +49,7 @@ for f in os.listdir(TRAINING_IMAGES_PATH):
         cv2.imshow(window_name, image)
         key = cv2.waitKey(1)
         if key == 27 or key == 13:
-            break  # esc or enter to predict drawn number
+            break  # esc or enter
     cv2.destroyAllWindows()
 
     cv2.imwrite(LABEL_IMAGES_PATH + f, canvas)

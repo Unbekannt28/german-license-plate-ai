@@ -20,4 +20,4 @@ for f in os.listdir(TRAINING_IMAGES_PATH):
     cv2.imwrite(TRAINING_IMAGES_PATH + f, image)
 
 cv2.waitKey(0)
-cv2.destroyAllWindows() 
+cv2.destroyAllWindows()
