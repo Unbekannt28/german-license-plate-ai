@@ -1,6 +1,7 @@
 import cv2
 import os
 import numpy as np
+from values import IMG_HEIGHT, IMG_WIDTH
 
 TRAINING_IMAGES_PATH = "training_images/"
 LABEL_IMAGES_PATH = "label_images/"
@@ -38,7 +39,7 @@ for f in os.listdir(TRAINING_IMAGES_PATH):
     old_y = 0
     mouse_down = False
     image = cv2.imread(TRAINING_IMAGES_PATH + f)
-    canvas = np.zeros((480, 640, 1), np.uint8)
+    canvas = np.zeros((IMG_HEIGHT, IMG_WIDTH, 1), np.uint8)
 
     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
     cv2.imshow(window_name, image)
