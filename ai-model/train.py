@@ -1,7 +1,9 @@
 import tensorflow as tf
 import cv2
 import os
+import numpy as np
 from values import IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS
+from image_utils import rgb_to_gray
 
 TRAINING_IMAGES_PATH = "../training_images_grayscale/"
 LABEL_IMAGES_PATH = "../label_images/"
@@ -10,23 +12,24 @@ print(tf.__version__)
 
 # Read and preprocess images and label images
 
-x_train = []
-for f in os.listdir(TRAINING_IMAGES_PATH):
+x_train = np.zeros((len(os.listdir(TRAINING_IMAGES_PATH)), IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS), dtype=np.uint8)
+for i, f in enumerate(os.listdir(TRAINING_IMAGES_PATH)):
     image = cv2.imread(TRAINING_IMAGES_PATH + f)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    #image = cv2.resize(image, (320, 240))
-    x_train.append(image)
+    image = cv2.resize(image, (128, 128))
+    image = rgb_to_gray(image)
+    x_train[i] = image
 
-x_train = tf.keras.utils.normalize(x_train, axis=1)
+#x_train = tf.keras.utils.normalize(x_train, axis=1)
 
-y_train = []
-for f in os.listdir(LABEL_IMAGES_PATH):
+y_train = np.zeros((len(os.listdir(TRAINING_IMAGES_PATH)), IMG_HEIGHT, IMG_WIDTH, 1), dtype=np.bool)
+for i, f in enumerate(os.listdir(LABEL_IMAGES_PATH)):
     image = cv2.imread(LABEL_IMAGES_PATH + f)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    #image = cv2.resize(image, (320, 240))
-    y_train.append(image)
+    image = cv2.resize(image, (128, 128))
+    image = rgb_to_gray(image)
+    y_train[i] = image
 
-y_train = tf.keras.utils.normalize(y_train, axis=1)
+#y_train = tf.keras.utils.normalize(y_train, axis=1)
+
 
 # Define the model
 inputs = tf.keras.layers.Input((IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS))
@@ -89,7 +92,7 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 model.summary()
 
 # train model
-model.fit(x_train, y_train, validation_split=0.1, batch_size=4, epochs=4)
+model.fit(x_train, y_train, validation_split=0.1, batch_size=2, epochs=10)
 
 # save model
 model.save("german_license_plate_image_segmentation")
