@@ -92,7 +92,8 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 model.summary()
 
 # train model
-model.fit(x_train, y_train, validation_split=0.1, batch_size=2, epochs=10)
+with tf.device('/device:GPU:0'):
+    model.fit(x_train, y_train, validation_split=0.1, batch_size=2, epochs=10)
 
 # save model
 model.save("german_license_plate_image_segmentation")
