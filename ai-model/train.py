@@ -15,7 +15,7 @@ print(tf.__version__)
 x_train = np.zeros((len(os.listdir(TRAINING_IMAGES_PATH)), IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS), dtype=np.uint8)
 for i, f in enumerate(os.listdir(TRAINING_IMAGES_PATH)):
     image = cv2.imread(TRAINING_IMAGES_PATH + f)
-    image = cv2.resize(image, (128, 128))
+    image = cv2.resize(image, (256, 256))
     image = rgb_to_gray(image)
     x_train[i] = image
 
@@ -24,7 +24,7 @@ for i, f in enumerate(os.listdir(TRAINING_IMAGES_PATH)):
 y_train = np.zeros((len(os.listdir(TRAINING_IMAGES_PATH)), IMG_HEIGHT, IMG_WIDTH, 1), dtype=np.bool)
 for i, f in enumerate(os.listdir(LABEL_IMAGES_PATH)):
     image = cv2.imread(LABEL_IMAGES_PATH + f)
-    image = cv2.resize(image, (128, 128))
+    image = cv2.resize(image, (256, 256))
     image = rgb_to_gray(image)
     y_train[i] = image
 

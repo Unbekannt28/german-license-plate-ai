@@ -4,14 +4,14 @@ import numpy as np
 from image_utils import rgb_to_gray
 
 TRAINING_IMAGES_PATH = "/home/unbekannt/Downloads/"
-TEST_FILE = "image2.jpg"
+TEST_FILE = "image.jpg"
 
 model = tf.keras.models.load_model("german_license_plate_image_segmentation")
 
 image = cv2.imread(TRAINING_IMAGES_PATH + TEST_FILE)
-image = cv2.resize(image, (128, 128))
+image = cv2.resize(image, (256, 256))
 image = rgb_to_gray(image)
-x_test = np.zeros((1, 128, 128, 1), dtype=np.uint8)
+x_test = np.zeros((1, 256, 256, 1), dtype=np.uint8)
 x_test[0] = image
 
 cv2.imshow("Input", cv2.resize(image, (800, 800)))
