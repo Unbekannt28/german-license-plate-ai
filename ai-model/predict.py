@@ -4,7 +4,7 @@ import numpy as np
 from image_utils import rgb_to_gray
 
 TRAINING_IMAGES_PATH = "/home/unbekannt/Downloads/"
-TEST_FILE = "image.jpg"
+TEST_FILE = "IMG_20240617_090926.jpg"
 
 model = tf.keras.models.load_model("german_license_plate_image_segmentation")
 
